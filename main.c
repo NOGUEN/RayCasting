@@ -83,8 +83,9 @@ typedef struct s_game {
 void load_texture(t_game *game);
 void load_image(t_game *game, int *texture, char *path, t_img *img);
 void verLine(t_game *game, int x, int y1, int y2, int color);
-int main_loop(t_game * game);
+int	 main_loop(t_game * game);
 int key_press(int keycode, t_game *game);
+void draw(t_game *game);
 
 int 	main(int argc, char **argv){
 	t_game game;
@@ -116,14 +117,12 @@ int 	main(int argc, char **argv){
 	}
 
 	load_texture(&game);
-
+	
 	game.img.img = mlx_new_image(game.mlx, screenWidth, screenHeight);
 	game.img.data = (int*)mlx_get_data_addr(game.img.img, &game.img.bpp, &game.img.size_l, &game.img.endian);
 	
-
 	mlx_hook(game.win, X_EVENT_KEY_PRESS, 0, &key_press, &game);
 	mlx_loop_hook(game.mlx, &main_loop, &game);
-	mlx_put_image_to_window(game.mlx, game.win, game.buf, 0, 0);
 	mlx_loop(game.mlx);
 }
 
@@ -164,7 +163,6 @@ int		main_loop(t_game *game){
 			color = (color >> 1) & 8355711;
 
 			game->buf[y][x] = color;
-
 			color = game->texture[ceilingTexture][texWidth * ty + tx];
 			color = (color >> 1) & 8355711;
 
@@ -258,6 +256,8 @@ int		main_loop(t_game *game){
 				color = (color >> 1) & 8355711;
 			game->buf[y][x] = color;
 		}
+
+		//floorcasting
         double floorXWall, floorYWall;
 
         if (side == 0 && rayDirX > 0){
@@ -299,27 +299,18 @@ int		main_loop(t_game *game){
 
             game->buf[y][x] = (game->texture[floorTexture][texWidth * floorTexY + floorTexX] >> 1) & 8355711;
             game->buf[screenHeight - y][x] = game->texture[6][texWidth * floorTexY + floorTexX];
-        }
+        }	
 	}
-	
-	return (0);
-}
-
-void	verLine(t_game *game, int x, int y1, int y2, int color){
-	int y;
-	y = y1;
-	while (y <= y2){
-		mlx_pixel_put(game->mlx, game->win, x, y, color);
-		y++;
-	}
+	draw(game);
+	return 0;
 }
 
 int		key_press(int keycode, t_game *game){
 	if (keycode == KEY_W){
-		if (!worldMap[(int)(game->posX + game->dirX * game->moveSpeed)][(int)(game->posY)])
+		if (!worldMap[(int)(game->posX + game->dirX * game->moveSpeed)][(int)(game->posY + game->dirY * game->moveSpeed)]){
 			game->posX += game->dirX * game->moveSpeed;
-		if (!worldMap[(int)(game->posX)][(int)(game->posY + game->dirY * game->moveSpeed)])
 			game->posY += game->dirY * game->moveSpeed;
+		}
 	}
     if (keycode == KEY_S){
         if (!worldMap[(int)(game->posX - game->dirX * game->moveSpeed)][(int)(game->posY - game->dirY * game->moveSpeed)]){
@@ -348,8 +339,7 @@ int		key_press(int keycode, t_game *game){
 }
 
 
-void	load_image(t_game *game, int *texture, char *path, t_img *img)
-{
+void	load_image(t_game *game, int *texture, char *path, t_img *img){
     img->img = mlx_xpm_file_to_image(game->mlx, path, &img->img_width, &img->img_height);
     img->data = (int *)mlx_get_data_addr(img->img, &img->bpp, &img->size_l, &img->endian);
     for (int y = 0;y < img->img_height; y++)
@@ -358,16 +348,27 @@ void	load_image(t_game *game, int *texture, char *path, t_img *img)
     mlx_destroy_image(game->mlx, img->img);
 }
 
-void	load_texture(t_game *game)
-{
+void	load_texture(t_game *game){
 	t_img img;
 
-	load_image(game, game->texture[0], "textures/eagle.png", &img);
-	load_image(game, game->texture[1], "textures/redbrick.png", &img);
-	load_image(game, game->texture[2], "textures/purplestone.png", &img);
-    load_image(game, game->texture[3], "textures/greystone.png", &img);
-    load_image(game, game->texture[4], "textures/bluestone.png", &img);
-    load_image(game, game->texture[5], "textures/mossy.png", &img);
-    load_image(game, game->texture[6], "textures/wood.png", &img);
-    load_image(game, game->texture[7], "textures/colorstone.png", &img);
+	load_image(game, game->texture[0], "textures/eagle.xpm", &img);
+	load_image(game, game->texture[1], "textures/redbrick.xpm", &img);
+	load_image(game, game->texture[2], "textures/purplestone.xpm", &img);
+    load_image(game, game->texture[3], "textures/greystone.xpm", &img);
+    load_image(game, game->texture[4], "textures/bluestone.xpm", &img);
+    load_image(game, game->texture[5], "textures/mossy.xpm", &img);
+    load_image(game, game->texture[6], "textures/wood.xpm", &img);
+    load_image(game, game->texture[7], "textures/colorstone.xpm", &img);
+}
+
+void	draw(t_game *game)
+{
+	for (int y = 0; y < screenHeight; y++)
+	{
+		for (int x = 0; x < screenWidth; x++)
+		{
+			game->img.data[y * screenWidth + x] = game->buf[y][x];
+		}
+	}
+	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 }
