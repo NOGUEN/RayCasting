@@ -117,7 +117,6 @@ int 	main(int argc, char **argv){
 	}
 
 	load_texture(&game);
-	
 	game.img.img = mlx_new_image(game.mlx, screenWidth, screenHeight);
 	game.img.data = (int*)mlx_get_data_addr(game.img.img, &game.img.bpp, &game.img.size_l, &game.img.endian);
 	
