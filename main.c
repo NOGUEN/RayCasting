@@ -10,18 +10,18 @@
 #define screenWidth 640
 #define screenHeight 480
 
-#define X_EVENT_KEY_PRESS		2
-#define X_EVENT_KEY_RELEASE		3
-#define X_EVENT_KEY_EXIT		17
+#define X_EVENT_KEY_PRESS       2
+#define X_EVENT_KEY_RELEASE     3
+#define X_EVENT_KEY_EXIT        17
 
-#define KEY_ESC		53
-# define KEY_Q		12
-# define KEY_W		13
-# define KEY_E		14
-# define KEY_R		15
-# define KEY_A		0
-# define KEY_S		1
-# define KEY_D		2
+#define KEY_ESC        53
+# define KEY_Q        12
+# define KEY_W        13
+# define KEY_E        14
+# define KEY_R        15
+# define KEY_A        0
+# define KEY_S        1
+# define KEY_D        2
 
 int worldMap[mapWidth][mapHeight]=
 {
@@ -52,74 +52,77 @@ int worldMap[mapWidth][mapHeight]=
 };
 
 typedef struct s_img {
-	void 	*img;
-	int		*data;
+    void     *img;
+    int        *data;
 
-	int		img_width;
-	int		img_height;
-	int		size_l;
-	int		bpp;
-	int		endian;
+    int        img_width;
+    int        img_height;
+    int        size_l;
+    int        bpp;
+    int        endian;
 }t_img;
 
 typedef struct s_game {
-	void	*mlx;
-	void	*win;
-	t_img	img;
-	int		buf[screenHeight][screenWidth];
-	int		**texture;
+    void    *mlx;
+    void    *win;
+    t_img    img;
+    int        buf[screenHeight][screenWidth];
+    int        **texture;
 
-	double	posX;
-	double	posY;
-	double	dirX;
-	double	dirY;
-	double	planeX;
-	double	planeY;
+    double    posX;
+    double    posY;
+    double    dirX;
+    double    dirY;
+    double    planeX;
+    double    planeY;
 
-	double	moveSpeed;
-	double	rotSpeed;
+    double    moveSpeed;
+    double    rotSpeed;
 }t_game;
 
 void load_texture(t_game *game);
-void load_image(t_game *game, int *texture, char *path, t_img *img);
-void verLine(t_game *game, int x, int y1, int y2, int color);
-int	 main_loop(t_game * game);
+void load_image(t_game *game, int *texture, char *path, t_img * img);
+int main_loop(t_game *game);
 int key_press(int keycode, t_game *game);
 void draw(t_game *game);
 
-int 	main(int argc, char **argv){
+int main(int argc, char *argv[]) {
 	t_game game;
 	game.posX = 22.0;
 	game.posY = 11.5;
 	game.dirX = -1.0;
 	game.dirY = 0.0;
-	game.planeX = 0.0;
+	game.planeX = 0;
 	game.planeY = 0.66;
-	game.moveSpeed = 0.05;
-	game.rotSpeed = 0.05;	
+	game.moveSpeed = 0.1;
+	game.rotSpeed = 0.1;
 
 	game.mlx = mlx_init();
 	game.win = mlx_new_window(game.mlx, screenWidth, screenHeight, "test");
+
 	for (int i = 0; i < screenHeight; i++){
-		for (int j = 0; j < screenWidth; j++){
+		for (int j = 0; j <screenWidth; j++)
 			game.buf[i][j] = 0;
-		}
 	}
+
 	if (!(game.texture = (int**)malloc(sizeof(int*) * 8)))
 		return -1;
+	
 	for (int i = 0; i < 8; i++){
-		if (!(game.texture[i] = (int *)malloc(sizeof(int)*(texHeight * texWidth))))
+		if (!(game.texture[i] = (int*)malloc(sizeof(int)*(texHeight * texWidth))))
 			return -1;
 	}
-	for (int i = 0; i < 8; i++){
+
+	for (int i = 0; i< 8; i++){
 		for (int j = 0; j < texHeight * texWidth; j++)
 			game.texture[i][j] = 0;
 	}
 
 	load_texture(&game);
+
 	game.img.img = mlx_new_image(game.mlx, screenWidth, screenHeight);
-	game.img.data = (int*)mlx_get_data_addr(game.img.img, &game.img.bpp, &game.img.size_l, &game.img.endian);
-	
+	game.img.data = (int *)mlx_get_data_addr(game.img.img, &game.img.bpp, &game.img.size_l, &game.img.endian);
+
 	mlx_hook(game.win, X_EVENT_KEY_PRESS, 0, &key_press, &game);
 	mlx_loop_hook(game.mlx, &main_loop, &game);
 	mlx_loop(game.mlx);
@@ -130,7 +133,7 @@ int		main_loop(t_game *game){
 		float rayDirX0 = game->dirX - game->planeX;
 		float rayDirY0 = game->dirY - game->planeY;
 		float rayDirX1 = game->dirX + game->planeX;
-		float rayDirY1 = game->dirX + game->planeY;
+		float rayDirY1 = game->dirY + game->planeY;
 
 		int p = y - screenHeight / 2;
 
@@ -162,13 +165,15 @@ int		main_loop(t_game *game){
 			color = (color >> 1) & 8355711;
 
 			game->buf[y][x] = color;
+
 			color = game->texture[ceilingTexture][texWidth * ty + tx];
 			color = (color >> 1) & 8355711;
 
 			game->buf[screenHeight - y - 1][x] = color;
 		}
 	}
-	for (int x = 0; x < screenWidth; x++){
+
+	for (int x = 0; x < screenWidth; x++) {
 		double cameraX = 2 * x / (double)screenWidth - 1;
 		double rayDirX = game->dirX + game->planeX * cameraX;
 		double rayDirY = game->dirY + game->planeY * cameraX;
@@ -202,7 +207,8 @@ int		main_loop(t_game *game){
 			stepY = 1;
 			sideDistY = (mapY + 1.0 - game->posY) * deltaDistY;
 		}
-		while (hit == 0){
+
+		while (hit == 0) {
 			if (sideDistX < sideDistY){
 				sideDistX += deltaDistX;
 				mapX += stepX;
@@ -212,10 +218,10 @@ int		main_loop(t_game *game){
 				mapY += stepY;
 				side = 1;
 			}
-			if (worldMap[mapX][mapY] > 0){
+			if (worldMap[mapX][mapY] > 0)
 				hit = 1;
-			}
 		}
+
 		if (side == 0)
 			perpWallDist = (mapX - game->posX + (1 - stepX) / 2) / rayDirX;
 		else
@@ -231,12 +237,12 @@ int		main_loop(t_game *game){
 			drawEnd = screenHeight - 1;
 
 		int texNum = worldMap[mapX][mapY] - 1;
-
+	
 		double wallX;
 		if (side == 0)
 			wallX = game->posY + perpWallDist * rayDirY;
 		else
-			wallX = game->posY + perpWallDist * rayDirX;
+			wallX = game->posX + perpWallDist * rayDirX;
 		wallX -= floor(wallX);
 
 		int texX = (int)(wallX * (double)texWidth);
@@ -250,95 +256,98 @@ int		main_loop(t_game *game){
 		for (int y = drawStart; y < drawEnd; y++){
 			int texY = (int)texPos & (texHeight - 1);
 			texPos += step;
-			int color = game->texture[texNum][texWidth * texY + texX];
+			int color = game-> texture[texNum][texHeight * texY + texX];
 			if (side == 1)
 				color = (color >> 1) & 8355711;
 			game->buf[y][x] = color;
 		}
 
-		//floorcasting
-        double floorXWall, floorYWall;
+		double floorXWall, floorYWall;
 
-        if (side == 0 && rayDirX > 0){
-            floorXWall = mapX;
-            floorYWall = mapY + wallX;
-        } else if (side == 0 && rayDirX < 0){
-            floorXWall = mapX + 1.0;
-            floorYWall = mapY + wallX;
-        } else if (side == 1 && rayDirY > 0){
-            floorXWall = mapX + wallX;
-            floorYWall = mapY;
-        } else {
-            floorXWall = mapX + wallX;
-            floorYWall = mapY + 1.0;
-        }
+		if (side == 0 && rayDirX > 0){
+			floorXWall = mapX;
+			floorYWall = mapY + wallX;
+		} else if (side == 0 && rayDirX < 0) {
+			floorXWall = mapX + 1.0;
+			floorYWall = mapY + wallX;
+		} else if (side == 1 && rayDirY > 0) {
+			floorXWall = mapX + wallX;
+			floorYWall = mapY;
+		} else {
+			floorXWall = mapX + wallX;
+			floorYWall = mapY + 1.0;
+		}
 
-        double distWall, distPlayer, currentDist;
+		double distWall, distPlayer, currentDist;
 
-        distWall = perpWallDist;
-        distPlayer = 0.0;
+		distWall = perpWallDist;
+		distPlayer = 0.0;
 
-        if (drawEnd < 0)
-            drawEnd = screenHeight;
-        for (int y = drawEnd + 1; y < screenHeight; y++){
-            currentDist = screenHeight / (2.0 * y -screenHeight);
+		if (drawEnd < 0) 
+			drawEnd = screenHeight;
 
-            double weight = (currentDist - distPlayer) / (distWall - distPlayer);
-            double currentFloorX = weight * floorXWall + (1.0 - weight) * game->posX;
-            double currentFloorY = weight * floorYWall + (1.0 - weight) * game->posY;
+		for (int y = drawEnd + 1; y < screenHeight; y++){
+			currentDist = screenHeight / (2.0 * y - screenHeight);
 
-            int floorTexX, floorTexY;
-            floorTexX = (int)(currentFloorX * texWidth) % texWidth;
-            floorTexY = (int)(currentFloorY * texHeight) % texHeight;
+			double weight = (currentDist - distPlayer) / (distWall - distPlayer);
+			double currentFloorX = weight * floorXWall + (1.0 - weight) * game->posX;
+			double currentFloorY = weight * floorYWall + (1.0 - weight) * game->posY;
 
-            int checkerBoardPattern = ((int)(currentFloorX) + (int)(currentFloorY)) % 2;
-            int floorTexture;
-            if (checkerBoardPattern == 0) floorTexture = 3;
-            else floorTexture = 4;
+			int floorTexX, floorTexY;
+			floorTexX = (int)(currentFloorX * texWidth) % texWidth;
+			floorTexY = (int)(currentFloorY * texHeight) % texHeight;
 
-            game->buf[y][x] = (game->texture[floorTexture][texWidth * floorTexY + floorTexX] >> 1) & 8355711;
-            game->buf[screenHeight - y][x] = game->texture[6][texWidth * floorTexY + floorTexX];
-        }	
-	}
-	draw(game);
-	return 0;
-}
+			int checkerBoardPattern = ((int)(currentFloorX) + (int)(currentFloorY)) % 2;
+			int floorTexture;
+			if (checkerBoardPattern == 0)
+				floorTexture = 3;
+			else floorTexture = 4;
 
-int		key_press(int keycode, t_game *game){
-	if (keycode == KEY_W){
-		if (!worldMap[(int)(game->posX + game->dirX * game->moveSpeed)][(int)(game->posY + game->dirY * game->moveSpeed)]){
-			game->posX += game->dirX * game->moveSpeed;
-			game->posY += game->dirY * game->moveSpeed;
+			game->buf[y][x] = (game->texture[floorTexture][texWidth * floorTexY + floorTexX] >> 1) & 8355711;
+			game->buf[screenHeight - y][x] = game->texture[6][texWidth * floorTexY + floorTexX];
 		}
 	}
-    if (keycode == KEY_S){
+	draw(game);
+	return (0);
+}
+
+
+int        key_press(int keycode, t_game *game){
+	if (keycode == KEY_ESC)
+		exit(0);
+    if (keycode == KEY_W || keycode == 126){
+        if (!worldMap[(int)(game->posX + game->dirX * game->moveSpeed)][(int)(game->posY + game->dirY * game->moveSpeed)]){
+            game->posX += game->dirX * game->moveSpeed;
+            game->posY += game->dirY * game->moveSpeed;
+        }
+    }
+    if (keycode == KEY_S || keycode == 125){
         if (!worldMap[(int)(game->posX - game->dirX * game->moveSpeed)][(int)(game->posY - game->dirY * game->moveSpeed)]){
             game->posX -= game->dirX * game->moveSpeed;
             game->posY -= game->dirY * game->moveSpeed;
         }
     }
-    if (keycode == KEY_D){
+    if (keycode == KEY_D || keycode == 124){
         double oldDirX = game->dirX;
-		game->dirX = game->dirX * cos(-game->rotSpeed) - game->dirY * sin(-game->rotSpeed);
-		game->dirY = oldDirX * sin(-game->rotSpeed) + game->dirY * cos(-game->rotSpeed);
-		double oldPlaneX = game->planeX;
-		game->planeX = game->planeX * cos(-game->rotSpeed) - game->planeY * sin(-game->rotSpeed);
-		game->planeY = oldPlaneX * sin(-game->rotSpeed) + game->planeY * cos(-game->rotSpeed);
+        game->dirX = game->dirX * cos(-game->rotSpeed) - game->dirY * sin(-game->rotSpeed);
+        game->dirY = oldDirX * sin(-game->rotSpeed) + game->dirY * cos(-game->rotSpeed);
+        double oldPlaneX = game->planeX;
+        game->planeX = game->planeX * cos(-game->rotSpeed) - game->planeY * sin(-game->rotSpeed);
+        game->planeY = oldPlaneX * sin(-game->rotSpeed) + game->planeY * cos(-game->rotSpeed);
     }
 
-	if (keycode == KEY_A){
+    if (keycode == KEY_A || keycode == 123){
         double oldDirX = game->dirX;
         game->dirX = game->dirX * cos(game->rotSpeed) - game->dirY * sin(game->rotSpeed);
         game->dirY = oldDirX * sin(game->rotSpeed) + game->dirY * cos(game->rotSpeed);
         double oldPlaneX = game->planeX;
         game->planeX = game->planeX * cos(game->rotSpeed) - game->planeY * sin(game->rotSpeed);
         game->planeY = oldPlaneX * sin(game->rotSpeed) + game->planeY * cos(game->rotSpeed);
-	}
-	return (0);
+    }
+    return (0);
 }
 
-
-void	load_image(t_game *game, int *texture, char *path, t_img *img){
+void    load_image(t_game *game, int *texture, char *path, t_img *img){
     img->img = mlx_xpm_file_to_image(game->mlx, path, &img->img_width, &img->img_height);
     img->data = (int *)mlx_get_data_addr(img->img, &img->bpp, &img->size_l, &img->endian);
     for (int y = 0;y < img->img_height; y++)
@@ -347,12 +356,12 @@ void	load_image(t_game *game, int *texture, char *path, t_img *img){
     mlx_destroy_image(game->mlx, img->img);
 }
 
-void	load_texture(t_game *game){
-	t_img img;
+void    load_texture(t_game *game){
+    t_img img;
 
-	load_image(game, game->texture[0], "textures/eagle.xpm", &img);
-	load_image(game, game->texture[1], "textures/redbrick.xpm", &img);
-	load_image(game, game->texture[2], "textures/purplestone.xpm", &img);
+    load_image(game, game->texture[0], "textures/eagle.xpm", &img);
+    load_image(game, game->texture[1], "textures/redbrick.xpm", &img);
+    load_image(game, game->texture[2], "textures/purplestone.xpm", &img);
     load_image(game, game->texture[3], "textures/greystone.xpm", &img);
     load_image(game, game->texture[4], "textures/bluestone.xpm", &img);
     load_image(game, game->texture[5], "textures/mossy.xpm", &img);
@@ -360,14 +369,14 @@ void	load_texture(t_game *game){
     load_image(game, game->texture[7], "textures/colorstone.xpm", &img);
 }
 
-void	draw(t_game *game)
+void    draw(t_game *game)
 {
-	for (int y = 0; y < screenHeight; y++)
-	{
-		for (int x = 0; x < screenWidth; x++)
-		{
-			game->img.data[y * screenWidth + x] = game->buf[y][x];
-		}
-	}
-	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
+    for (int y = 0; y < screenHeight; y++)
+    {
+        for (int x = 0; x < screenWidth; x++)
+        {
+            game->img.data[y * screenWidth + x] = game->buf[y][x];
+        }
+    }
+    mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 }
