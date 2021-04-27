@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:18:24 by nogeun            #+#    #+#             */
-/*   Updated: 2021/04/25 16:22:59 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/04/27 12:05:22 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <math.h>
 # include "mlx/mlx.h"
+# include "gnl/get_next_line.h"
 
 # define texWidth				64
 # define texHeight				64
@@ -33,5 +34,60 @@
 # define KEY_A					0
 # define KEY_S					1
 
+typedef struct		s_mlx{
+	void			*ptr;
+}					t_mlx;
+
+typedef struct		s_win{
+	void			*ptr;
+}					t_win;
+
+typedef struct		s_img{
+	void			*ptr;
+	int				*data;
+
+	int				img_width;
+	int				img_height;
+	int				size_l;
+	int				bpp;
+	int				endian;
+}					t_img;
+
+typedef struct		s_map{
+	char			**tab;
+	int				x;
+	int				y;
+	int				spr;
+}					t_map;
+
+typedef struct		s_tex{
+	unsigned int	*n;
+	unsigned int	*s;
+	unsigned int	*e;
+	unsigned int	*w;
+	unsigned int	*i;
+	unsigned int	c;
+	unsigned int	f;
+}					t_tex;
+
+typedef struct		s_pos{
+	double			x;
+	double			y;
+}					t_pos;
+
+typedef struct		s_dir{
+	double			x;
+	double			y;
+}
+
+typedef struct		s_all{
+	t_mlx			mlx;
+	t_win			win;
+	t_img			img;
+	t_map			map;
+	t_tex			tex;
+	t_pos			pos;
+	t_dir			dir;
+}
 #endif
 
