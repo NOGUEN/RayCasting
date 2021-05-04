@@ -16,5 +16,5 @@ int		input_map(t_all *s, char *line){
 	char	**tmp;
 	int		j;
 	
-
+	dfdfdfdf
 }
