@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 13:57:31 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/03 12:47:37 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/20 18:16:46 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,27 @@ int		input_resolution(t_all *s, char *line, int *i){
 	return (0);
 }
 
-int		input_xpm(t_all *s, unsigned int **adr, char *file){
+int		input_xpm(t_all *s, int **adr, char *file){
 	int			fd;
-	void		*img;
-	int			tab[5];
 
+	*adr = malloc(sizeof(int) * (TEXWIDTH * TEXHEIGHT));
 	if ((fd = open(file, O_RDONLY)) == -1)
 		return (-1);
 	close(fd);
-	img = mlx_xpm_file_to_image(s->mlx.ptr, file, &tab[0], &tab[1]);
-	if (img == NULL || tab[0] != 64 || tab[1] != 64)
+	s->img.ptr = 
+		mlx_xpm_file_to_image(s->mlx.ptr, file, &s->img.width, &s->img.height);
+	if (s->img.ptr == NULL || s->img.width != 64 || s->img.height != 64)
 		return (-1);
-	*adr = (unsigned int *)mlx_get_data_addr(img, &tab[2], &tab[3], &tab[4]);
-	free(img);
+	s->img.data = (int *)mlx_get_data_addr
+		(s->img.ptr, &s->img.bpp, &s->img.size_l, &s->img.endian);
+	for (int y = 0; y < 64; y++)
+		for (int x = 0; x < 64; x++)
+			(*adr)[64 * y + x] = s->img.data[64 * y + x];
+	free(s->img.ptr);
 	return (0);
 }
 
-int		input_texture(t_all *s, unsigned int **adr, char *line, int *i){
+int		input_texture(t_all *s, int **adr, char *line, int *i){
 	int		j;
 	char	*file;
 

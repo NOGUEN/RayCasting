@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:18:24 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/03 21:03:43 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/20 18:47:22 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define YELLOW					0x00FFFF00
 # define CYAN					0x0000FFFF
 
-# define texWidth				64
-# define texHeight				64
+# define TEXWIDTH				64
+# define TEXHEIGHT				64
 
 # define X_EVENT_KEY_PRESS		2
 # define X_EVENT_KEY_RELEASE	3
@@ -43,6 +43,7 @@
 # define KEY_R					15
 # define KEY_A					0
 # define KEY_S					1
+# define KEY_D					2
 
 typedef struct		s_mlx{
 	void			*ptr;
@@ -52,6 +53,7 @@ typedef struct		s_win{
 	void			*ptr;
 	int				x;
 	int				y;
+	int				**buf;
 }					t_win;
 
 typedef struct		s_err{
@@ -60,26 +62,30 @@ typedef struct		s_err{
 
 typedef struct		s_img{
 	void			*ptr;
-	int				*adr;
+	int				*data;
 
-	int				img_width;
-	int				img_height;
+	int				width;
+	int				height;
 	int				size_l;
 	int				bpp;
 	int				endian;
 }					t_img;
 
 typedef struct		s_map{
-	t_map			*next;
-	char			*line;
+	char			**map;
+	int				x;
+	int				y;
+	int				mapX;
+	int				mapY;
+	int				spr;
 }					t_map;
 
 typedef struct		s_tex{
-	unsigned int	*n;
-	unsigned int	*s;
-	unsigned int	*e;
-	unsigned int	*w;
-	unsigned int	*i;
+	int				*n;
+	int				*s;
+	int				*e;
+	int				*w;
+	int				*i;
 	unsigned int	f;
 	unsigned int	c;
 }					t_tex;
@@ -87,6 +93,7 @@ typedef struct		s_tex{
 typedef struct		s_pos{
 	double			x;
 	double			y;
+	double			z;
 }					t_pos;
 
 typedef struct		s_dir{
@@ -94,26 +101,118 @@ typedef struct		s_dir{
 	double			y;
 }					t_dir;
 
+typedef struct		s_plane{
+	double			x;
+	double			y;
+}					t_plane;
+
+typedef struct		s_speed{
+	double			move;
+	double			rotate;
+}					t_speed;
+
+typedef struct		s_fcray{
+	float			rayDirX0;
+	float			rayDirY0;
+	float			rayDirX1;
+	float			rayDirY1;
+	int				p;
+	float			rowDistance;
+	float			floorStepX;
+	float			floorStepY;
+	float			floorX;
+	float			floorY;
+}					t_fcray;
+
+typedef struct		s_wallray{
+	double			cameraX;
+	double			rayDirX;
+	double			rayDirY;
+	double			sideDistX;
+	double			sideDistY;
+	double			deltaDistX;
+	double			deltaDistY;
+	double			perpWallDist;
+	int				stepX;
+	int				stepY;
+	int				hit;
+	int				side;
+	double			step;
+	double			texPos;
+	double			floorXWall;
+	double			floorYWall;
+}					t_wallray;
+
+typedef struct		s_draw{
+	int				lineHeight;
+	int				texNum;
+	int				drawStart;
+	int				drawEnd;
+	int				texX;
+	int				texY;
+	int				color;
+	double			wallX;
+}					t_draw;
+
+typedef struct		s_dist{
+	double			wall;
+	double			player;
+	double			current;
+}					t_dist;
+
 typedef struct		s_all{
 	t_mlx			mlx;
 	t_win			win;
 	t_err			err;
 	t_img			img;
-	t_map			map_head;
+	t_map			map;
 	t_tex			tex;
 	t_pos			pos;
 	t_dir			dir;
+	t_plane			plane;
+	t_speed			speed;
+	t_fcray			fcray;
+	t_wallray		wallray;
+	t_draw			draw;
+	t_dist			dist;
 }					t_all;
 
-int		input_line(t_all *s, char *line);
+void	longest_line(t_all *s, char *cub);
+int		input_line(t_all *s, char *line, int *j);
 void	parse(t_all *s, char *cub);
 
 int		input_resolution(t_all *s, char *line, int *i);
-int		input_xpm(t_all *s, unsigned int **adr, char *file);
-int		input_texture(t_all *s, unsigned int **adr, char *line, int *i);
+int		input_xpm(t_all *s, int **adr, char *file);
+int		input_texture(t_all *s, int **adr, char *line, int *i);
 int		input_color(unsigned int *color, char *line, int *i);
+
+int		set_map(t_all *s);
+int		input_map(t_all *s, char *line, int *j);
+
+void	fc_setting(t_all *s, int y);
+void	wall_setting(t_all *s, int x);
+void	step_setting(t_all *s);
+void	tex_setting(t_all *s, int x);
+void	dirtex_setting(t_all *s);
+
+void	fc_casting(t_all *s);
+void	perform_dda(t_all*s);
+void	calculate(t_all *s);
+void	wall_casting(t_all *s);
+void	draw(t_all *s);
+
+void	last_casting1(t_all *s);
+void	last_casting2(t_all *s, int x);
+int		main_loop(t_all *s);
+
+int		key_press(int keycode, t_all *s);
+int		key_press_W(int keycode, t_all *s);
+int		key_press_A(int keycode, t_all *s);
+int		key_press_S(int keycode, t_all *s);
+int		key_press_D(int keycode, t_all *s);
 
 int		tool_space_skip(char *line, int *i);
 int		tool_atoi(char *line, int *i);
+int		tool_strlen(char *line);
 #endif
 

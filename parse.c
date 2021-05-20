@@ -6,13 +6,36 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 09:03:07 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/03 13:02:35 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/20 17:51:40 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		input_line(t_all *s, char *line){
+void	longest_line(t_all *s, char *cub){
+	char	*line;
+	int		fd;
+	int		ret;
+	int		tmp;
+
+	ret = 1;
+	fd = open(cub, O_RDONLY);
+	if (fd == -1)
+		write(2, "Open File Error", 15);
+	while (ret == 1){
+		ret = get_next_line(fd, &line);
+		if (line[0] == ' ' || line[0] == '1'){
+			tmp = tool_strlen(line);
+			s->map.y++;
+		}
+		if (s->map.x <= tmp)
+			s->map.x = tmp;
+	}
+	free(line);
+	close(fd);
+}
+
+int		input_line(t_all *s, char *line, int *j){
 	int		i;
 
 	i = 0;
@@ -32,7 +55,7 @@ int		input_line(t_all *s, char *line){
 	else if (line[i] == 'F' && line[i + 1] == ' ')
 		s->err.n = input_color(&s->tex.f, line, &i);
 	else if (line[i] == '1')
-		s->err.n = input_map();
+		s->err.n = input_map(s, line, j);
 	return (s->err.n);
 }
 
@@ -40,14 +63,17 @@ void	parse(t_all *s, char *cub){
 	char	*line;
 	int		fd;
 	int		ret;
+	int		j;
 
+	longest_line(s, cub);
 	ret = 1;
 	fd = open(cub, O_RDONLY);
+	j = 0;
 	if (fd == -1)
 		write(2, "Open File Error", 15);
 	while (ret == 1){
 		ret = get_next_line(fd, &line);
-		if (input_line(s, line) == -1)
+		if (input_line(s, line, &j) == -1)
 			ret = -1;
 		free(line);
 	}

@@ -1,62 +1,73 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/11 12:08:02 by nogeun            #+#    #+#             */
+/*   Updated: 2021/05/20 18:44:14 by nogeun           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-int		init_cube(t_all s, char *cub, int bmp){
-	t_pos	pos;
-	t_dir	dir;
-
-	pos.x = 0;
-	pos.y = 0;
-	dir.x = 0;
-	dir.y = 0;
-	s.pos = pos;
-	s.dir = dir;
-	s.mlx.ptr = mlx_init();
+int		main_loop(t_all *s){
+	fc_casting(s);
+	calculate(s);
+	wall_casting(s);
+	draw(s);
+	return (0);
 }
-
-int		init_graphic(t_all s, char *cub, int bmp){
-	t_map	*map;
-	t_tex	tex;
-
-	map = malloc(sizeof(t_map));
-	tex.n = NULL;
-	tex.s = NULL;
-	tex.e = NULL;
-	tex.w = NULL;
-	tex.i = NULL;
-}
-
-void	init(char *cub, int bmp){
-	t_all	s;
-	t_mlx	mlx;
-	t_win	win;
-	t_img	img;
-	t_err	err;
-
-	mlx.ptr = NULL;
-	win.ptr = NULL;
-	img.ptr = NULL;
-	img.adr = NULL;
-}
-
 
 int main(int argc, char** argv) {
 	t_all	s;
 	int i;
+	int j;
 	
-	s.mlx.ptr = mlx_init();
+	i = 0;
+	j = 0;
 	s.win.x = 0;
 	s.win.y = 0;
+	s.map.x = 0;
+	s.map.y = 0;
+	s.map.map = NULL;
+	s.pos.x = 5.0;
+	s.pos.y = 2.0;
+	s.dir.x = -1.0;
+	s.dir.y = 0.0;
+	s.plane.x = 0;
+	s.plane.y = 0.66;
+	s.tex.n = NULL;
+	s.tex.e = NULL;
+	s.tex.w = NULL;
+	s.tex.s = NULL;
+	s.speed.rotate = 0.1;
+	s.speed.move = 0.1;
 	parse(&s, argv[1]);
-	printf("%d\n", s.win.x);
-	printf("%d\n", s.win.y);
-	printf("%p\n", s.tex.n);
-	printf("%p\n", s.tex.s);
-	printf("%p\n", s.tex.e);
-	printf("%p\n", s.tex.w);
-	printf("%p\n", s.tex.i);
-	printf("%d\n", s.tex.f);
-	printf("%s\n", argv[1]);
-	
+	s.win.buf = malloc(sizeof(int *) * s.win.y + 1);
+	while (i < s.win.y + 1){
+		s.win.buf[i] = malloc(sizeof(int) * s.win.x + 1);
+		i++;
+	}
+	i = 0;
+	while (i < s.win.y + 1){
+		while (j < s.win.x + 1){
+			s.win.buf[i][j] = 0;
+			j++;
+		}
+		i++;
+	}
+	i = 0;
+    s.mlx.ptr = mlx_init();
+    s.win.ptr = mlx_new_window(s.mlx.ptr, s.win.x, s.win.y, "cub3D");
+
+    s.img.ptr = mlx_new_image(s.mlx.ptr, s.win.x, s.win.y);
+    s.img.data = (int *)mlx_get_data_addr(s.img.ptr, &s.img.bpp,
+            &s.img.size_l, &s.img.endian);
+
+    mlx_hook(s.win.ptr, X_EVENT_KEY_PRESS, 0, &key_press, &s);
+    mlx_loop_hook(s.mlx.ptr, &main_loop, &s);
+    mlx_loop(s.mlx.ptr);
 	i = argc;
-	return (0);
 }

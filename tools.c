@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 13:57:42 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/01 14:35:59 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/11 12:12:42 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,17 @@ int		tool_atoi(char *line, int *i){
 	while (line[*i] >= '0' && line[*i] <= '9'){
 		n = n * 10 + (line[*i] - 48);
 		(*i)++;
+	}
+	return (n);
+}
+
+int		tool_strlen(char *line){
+	int		n;
+
+	n = 0;
+	while(*line){
+		n++;
+		line++;
 	}
 	return (n);
 }
