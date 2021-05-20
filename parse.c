@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 09:03:07 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/20 17:51:40 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/20 20:41:16 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int		input_line(t_all *s, char *line, int *j){
 		s->err.n = input_texture(s, &s->tex.i, line, &i);
 	else if (line[i] == 'F' && line[i + 1] == ' ')
 		s->err.n = input_color(&s->tex.f, line, &i);
+	else if (line[i] == 'C' && line[i + 1] == ' ')
+		s->err.n = input_color(&s->tex.c, line, &i);
 	else if (line[i] == '1')
 		s->err.n = input_map(s, line, j);
 	return (s->err.n);

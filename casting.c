@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 14:37:03 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/20 16:59:21 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/20 20:42:09 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	fc_casting(t_all *s){
 			ty = (int)(TEXHEIGHT * (s->fcray.floorY - cellY)) & (TEXHEIGHT - 1);
 			s->fcray.floorX += s->fcray.floorStepX;
 			s->fcray.floorY += s->fcray.floorStepY;
-			s->win.buf[y][x] = (s->tex.f >> 1) & 8355711;
+			s->win.buf[y][x] = (s->tex.c >> 1) & 8355711;
 			s->win.buf[s->win.y - y - 1][x] = (s->tex.f >> 1) & 83555711;
 		}
 	}

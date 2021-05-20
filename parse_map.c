@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 13:32:25 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/12 19:22:31 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/20 20:45:16 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int		set_map(t_all *s){
 	int		j;
-<<<<<<< HEAD
 
 	j = -1;
 	if (!(s->map.map = malloc(sizeof(char *) * (s->map.y + 2))))
@@ -43,8 +42,4 @@ int		input_map(t_all *s, char *line, int *j){
 	}
 	*j = *j + 1;;
 	return (0);
-=======
-	
-	dfdfdfdf
->>>>>>> 016b8fbfeaf533cdb66017114c0a82df36fd6789
 }
