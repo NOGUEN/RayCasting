@@ -27,6 +27,7 @@ $(MLX) :
 
 clean:
 	rm -rf *.o
+	rm -rf gnl/*.o
 
 fclean:		 clean
 				rm -rf $(NAME)
