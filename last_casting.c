@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 13:48:25 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/20 14:44:57 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/21 18:19:38 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	last_casting2(t_all *s, int x){
 		s->draw.drawEnd = s->win.y;
 	while (y < s->win.y){
 		s->dist.current = s->win.y / (2.0 * y - s->win.y);
-		s->win.buf[y][x] = (s->tex.f >> 1) & 8355711;
+		s->win.buf[y][x] = s->tex.f;
 		y++;
 	}
 }
