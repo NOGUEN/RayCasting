@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 12:08:02 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/20 18:44:14 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/22 14:07:22 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int main(int argc, char** argv) {
 	
 	i = 0;
 	j = 0;
+	s.err.p = 0;
+	s.err.n = 0;
 	s.win.x = 0;
 	s.win.y = 0;
 	s.map.x = 0;
@@ -42,6 +44,7 @@ int main(int argc, char** argv) {
 	s.tex.e = NULL;
 	s.tex.w = NULL;
 	s.tex.s = NULL;
+	s.tex.i = NULL;
 	s.speed.rotate = 0.1;
 	s.speed.move = 0.1;
 	parse(&s, argv[1]);

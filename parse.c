@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 09:03:07 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/20 20:41:16 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/22 14:13:27 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,12 @@ int		input_line(t_all *s, char *line, int *j){
 		s->err.n = input_color(&s->tex.c, line, &i);
 	else if (line[i] == '1')
 		s->err.n = input_map(s, line, j);
-	return (s->err.n);
+	if (tool_space_skip(line, &i) && s->err.n == 1 && line[i] != '\0')
+		return (tool_error(-10));
+	return (s->err.n < 0 ? tool_error(s->err.n) : 0);
 }
 
-void	parse(t_all *s, char *cub){
+int		parse(t_all *s, char *cub){
 	char	*line;
 	int		fd;
 	int		ret;
@@ -81,6 +83,8 @@ void	parse(t_all *s, char *cub){
 	}
 	close(fd);
 	if (ret == -1)
-		write(2, "Error", 5);
+		return (tool_error(ret + 1));
+	pos_check(s);
+	return (parse_check(s));
 }
 

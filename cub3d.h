@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:18:24 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/20 18:47:22 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/22 14:33:09 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct		s_win{
 
 typedef struct		s_err{
 	int				n;
+	int				p;
 }					t_err;
 
 typedef struct		s_img{
@@ -179,7 +180,7 @@ typedef struct		s_all{
 
 void	longest_line(t_all *s, char *cub);
 int		input_line(t_all *s, char *line, int *j);
-void	parse(t_all *s, char *cub);
+int		parse(t_all *s, char *cub);
 
 int		input_resolution(t_all *s, char *line, int *i);
 int		input_xpm(t_all *s, int **adr, char *file);
@@ -188,6 +189,11 @@ int		input_color(unsigned int *color, char *line, int *i);
 
 int		set_map(t_all *s);
 int		input_map(t_all *s, char *line, int *j);
+
+int		name_check(char *arg, char *ext);
+int		map_check(t_all *s);
+int		parse_check(t_all *s);
+void	pos_check(t_all *s);
 
 void	fc_setting(t_all *s, int y);
 void	wall_setting(t_all *s, int x);
@@ -206,13 +212,13 @@ void	last_casting2(t_all *s, int x);
 int		main_loop(t_all *s);
 
 int		key_press(int keycode, t_all *s);
-int		key_press_W(int keycode, t_all *s);
-int		key_press_A(int keycode, t_all *s);
-int		key_press_S(int keycode, t_all *s);
-int		key_press_D(int keycode, t_all *s);
+void	act_move(t_all *s, double c);
+void	act_rotate(t_all *s, double c);
 
 int		tool_space_skip(char *line, int *i);
 int		tool_atoi(char *line, int *i);
 int		tool_strlen(char *line);
+int		tool_error(int err);
+int		tool_close(t_all *s, int win);
 #endif
 
