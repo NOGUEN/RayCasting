@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 13:00:15 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/22 14:43:49 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/22 16:59:09 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,12 @@ int		key_press(int keycode, t_all *s){
 
 void	act_move(t_all *s, double c){
 	s->pos.x += c * (s->dir.x * s->speed.move);
-	if (s->map.map[(int)floor(s->pos.y)][(int)floor(s->pos.x)] == '1')
+	if (s->map.map[(int)floor(s->pos.y)][(int)floor(s->pos.x)] == '1'
+			|| s->map.map[(int)floor(s->pos.y)][(int)floor(s->pos.x)] == 'w')
 		s->pos.x -= c * (s->dir.x * s->speed.move);
 	s->pos.y += c * (s->dir.y * s->speed.move);
-	if (s->map.map[(int)floor(s->pos.y)][(int)floor(s->pos.x)] == '1')
+	if (s->map.map[(int)floor(s->pos.y)][(int)floor(s->pos.x)] == '1'
+			|| s->map.map[(int)floor(s->pos.y)][(int)floor(s->pos.x)] == 'w')
 		s->pos.y -= c * (s->dir.y * s->speed.move);
 	if (s->map.map[(int)floor(s->pos.y)][(int)floor(s->pos.x)] == '2')
 		s->map.map[(int)floor(s->pos.y)][(int)floor(s->pos.x)] = '0';

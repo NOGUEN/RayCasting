@@ -10,7 +10,7 @@ LXFLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
 
 HEADER = cub3d.h
 
-SRCS = cub3d.c parse.c parse_tools.c tools.c parse_map.c parse_check.c\
+SRCS = cub3d.c parse.c parse_tools.c tools.c parse_map.c parse_check.c map_check.c\
 	  gnl/get_next_line.c gnl/get_next_line_utils.c \
 	  screen_setting.c casting.c \
 	  key_press.c last_casting.c

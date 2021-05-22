@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:18:24 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/22 14:33:09 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/22 16:55:05 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,11 @@ int		name_check(char *arg, char *ext);
 int		map_check(t_all *s);
 int		parse_check(t_all *s);
 void	pos_check(t_all *s);
+
+void	copy_map(t_all *s);
+int		find_start_point(t_all *s, int *i, int *j);
+void	convert_wall(t_all *s, int *i, int *j);
+void	print_all(t_all *s);
 
 void	fc_setting(t_all *s, int y);
 void	wall_setting(t_all *s, int x);

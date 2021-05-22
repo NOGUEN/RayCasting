@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 13:53:03 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/22 14:19:54 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/22 16:57:07 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,24 @@ int		name_check(char *arg, char *ext){
 }
 
 int		map_check(t_all *s){
+	int		first_i;
+	int		first_j;
 	int		i;
 	int		j;
 
 	i = 0;
 	j = 0;
-	while (i < s->map.y){
-		j = 0;
-		while (j < s->map.x / 2 + 1){
-			if (s->map.map[i][j] != '1' && i == 0)
-				return (-1);
-			else if (s->map.map[i][j] != '1' && i == s->map.y - 1)
-				return (-1);
-			else if (s->map.map[i][j] != '1' && j == 0)
-				return (-1);
-			else if (s->map.map[i][j] != '1' && j == (s->map.x / 2))
-				return (-1);
-			j++;
-		}
-		i++;
-	}
-	return (1);
+	if ((i = find_start_point(s, &i, &j)) == -1)
+		return (-1);
+	first_i = i;
+	first_j = j;
+	convert_wall(s, &i, &j);
+	print_all(s);
+	if (s->map.map[first_i][first_j + 1] == 'w')
+		return (0);
+	else
+		return (-1);
+	return (0);
 }
 
 void	pos_check(t_all *s){
