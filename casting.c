@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 14:37:03 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/21 18:19:25 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/23 18:35:25 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	perform_dda(t_all *s){
 			s->map.mapY += s->wallray.stepY;
 			s->wallray.side = 1;
 		}
-		if (s->map.map[s->map.mapY][s->map.mapX] > 48)
+		if (s->map.map[s->map.mapY][s->map.mapX] != '0')
 			s->wallray.hit = 1;
 	}
 }

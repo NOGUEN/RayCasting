@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 15:48:43 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/22 16:56:02 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/24 15:06:56 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,34 +20,6 @@ int		find_start_point(t_all *s, int *i, int *j){
 			*i = *i + 1;
 	}
 	return (-1);
-}
-
-void	convert_wall(t_all *s, int *i, int *j){
-	s->map.map[*j][*i] = 'w';
-	if (*i + 1 < s->map.x / 2 + 1){
-		*i = *i + 1;
-		if (s->map.map[*j][*i] == '1'){
-			convert_wall(s, i, j);
-		}
-	}
-	if (*j + 1 < s->map.y){
-		*j = *j + 1;
-		if (s->map.map[*j][*i] == '1'){
-			convert_wall(s, i, j);
-		}
-	}
-	if (*i - 1 >= 0){
-		*i = *i - 1;
-		if (s->map.map[*j][*i] == '1'){
-			convert_wall(s, i, j);
-		}
-	}
-	if (*j - 1 >= 0){
-		*j = *j - 1;
-		if (s->map.map[*j][*i] == '1'){
-			convert_wall(s, i, j);
-		}
-	}
 }
 
 void	print_all(t_all *s){

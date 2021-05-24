@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 12:08:02 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/22 14:07:22 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/23 19:48:43 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ int main(int argc, char** argv) {
 	s.map.map = NULL;
 	s.pos.x = 5.0;
 	s.pos.y = 2.0;
-	s.dir.x = -1.0;
+	s.dir.x = 0.0;
 	s.dir.y = 0.0;
-	s.plane.x = 0;
-	s.plane.y = 0.66;
+	s.plane.x = 0.0;
+	s.plane.y = 0.0;
 	s.tex.n = NULL;
 	s.tex.e = NULL;
 	s.tex.w = NULL;

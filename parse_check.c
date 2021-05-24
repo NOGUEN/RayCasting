@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 13:53:03 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/22 16:57:07 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/24 15:06:48 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,33 @@ int		name_check(char *arg, char *ext){
 }
 
 int		map_check(t_all *s){
-	int		first_i;
-	int		first_j;
 	int		i;
 	int		j;
+	int		start_i;
+	int		start_j;
 
 	i = 0;
 	j = 0;
 	if ((i = find_start_point(s, &i, &j)) == -1)
 		return (-1);
-	first_i = i;
-	first_j = j;
+	start_i = i;
+	start_j = j;
 	convert_wall(s, &i, &j);
-	print_all(s);
-	if (s->map.map[first_i][first_j + 1] == 'w')
+	if (start_i + 1 == i && start_j == j)
 		return (0);
-	else
-		return (-1);
-	return (0);
+	print_all(s);
+	return (-1);
+}
+
+void	set_direction(t_all *s, char c){
+	s->dir.x = (c == 'N' || c == 'S') ? 1.0 : 0.0;
+	s->dir.x *= (c == 'N') ? -1 : 1;
+	s->dir.y = (c == 'W' || c == 'E') ? 1.0 : 0.0;
+	s->dir.y *= (c== 'W') ? -1 : 1;
+	s->plane.y = (c == 'N' || c == 'S') ? 0.66 : 0.0;
+	s->plane.y *= (c == 'S') ? -1 : 1 ;
+	s->plane.x = (c == 'W' || c == 'E') ? 0.66 : 0.0;
+	s->plane.x *= (c == 'W') ? -1 : 1;
 }
 
 void	pos_check(t_all *s){
@@ -59,10 +68,7 @@ void	pos_check(t_all *s){
 				s->map.map[i][j] = '0';
 				s->pos.y = (double)i + 0.5;
 				s->pos.x = (double)j + 0.5;
-				s->dir.x = (c == 'E' || c == 'W') ? 1 : 0;
-				s->dir.x *= (c == 'W') ? -1 : 1;
-				s->dir.y = (c == 'S' || c == 'N') ? 1 : 0;
-				s->dir.y *= (c == 'N') ? -1 : 1;
+				set_direction(s, c);
 				s->err.p++;
 			}
 		}
