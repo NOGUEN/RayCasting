@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:18:24 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/24 14:58:19 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/27 16:03:02 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,24 @@ typedef struct		s_dist{
 	double			current;
 }					t_dist;
 
+typedef struct		s_spr{
+	double			x;
+	double			y;
+}					t_spr;
+
+typedef struct		s_vspr{
+	double			ZBuffer;
+	double			spriteX;
+	double			spriteY;
+	double			invDet;
+	double			transformX;
+	double			transformY;
+	int				spriteScreenX;
+	int				spriteHeight;
+	int				drawStartX;
+	int				drawEndX;
+}					t_vspr;
+
 typedef struct		s_all{
 	t_mlx			mlx;
 	t_win			win;
@@ -197,8 +215,7 @@ int		parse_check(t_all *s);
 void	pos_check(t_all *s);
 
 int		find_start_point(t_all *s, int *i, int *j);
-int		check_wall(t_all *s);
-void	print_all(t_all *s);
+int		save_check(char *arg, char *save);
 
 void	convert_wall(t_all *s, int *i, int *j);
 void	convert_wall_left(t_all *s, int *i, int *j);
@@ -225,6 +242,12 @@ int		main_loop(t_all *s);
 int		key_press(int keycode, t_all *s);
 void	act_move(t_all *s, double c);
 void	act_rotate(t_all *s, double c);
+
+void	set_int_in_char(unsigned char *start, int value);
+int		write_bmp_header(int fd, int filesize, t_all *s);
+int		get_color(t_all *s, int x, int y);
+int		write_bmp_data(int file, t_all *s, int pad);
+int		save_bmp(t_all *s);
 
 int		tool_space_skip(char *line, int *i);
 int		tool_atoi(char *line, int *i);

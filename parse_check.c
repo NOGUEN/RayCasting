@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 13:53:03 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/24 15:06:48 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/27 16:00:54 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int		map_check(t_all *s){
 	convert_wall(s, &i, &j);
 	if (start_i + 1 == i && start_j == j)
 		return (0);
-	print_all(s);
 	return (-1);
 }
 

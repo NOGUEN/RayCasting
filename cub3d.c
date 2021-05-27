@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 12:08:02 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/23 19:48:43 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/24 17:19:05 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int main(int argc, char** argv) {
 	s.speed.rotate = 0.1;
 	s.speed.move = 0.1;
 	parse(&s, argv[1]);
+	
 	s.win.buf = malloc(sizeof(int *) * s.win.y + 1);
 	while (i < s.win.y + 1){
 		s.win.buf[i] = malloc(sizeof(int) * s.win.x + 1);
@@ -69,6 +70,11 @@ int main(int argc, char** argv) {
     s.img.data = (int *)mlx_get_data_addr(s.img.ptr, &s.img.bpp,
             &s.img.size_l, &s.img.endian);
 
+    if (argc == 3 && name_check(argv[1], "cub") && save_check(argv[2], "--save")){
+        main_loop(&s);
+        save_bmp(&s);
+    }
+    
     mlx_hook(s.win.ptr, X_EVENT_KEY_PRESS, 0, &key_press, &s);
     mlx_loop_hook(s.mlx.ptr, &main_loop, &s);
     mlx_loop(s.mlx.ptr);
