@@ -76,8 +76,8 @@ typedef struct		s_map{
 	char			**map;
 	int				x;
 	int				y;
-	int				mapX;
-	int				mapY;
+	int				mapx;
+	int				mapy;
 	int				spr;
 }					t_map;
 
@@ -112,48 +112,48 @@ typedef struct		s_speed{
 }					t_speed;
 
 typedef struct		s_fcray{
-	float			rayDirX0;
-	float			rayDirY0;
-	float			rayDirX1;
-	float			rayDirY1;
+	float			raydirx0;
+	float			raydiry0;
+	float			raydirx1;
+	float			raydiry1;
 	int				p;
-	float			rowDistance;
-	float			floorStepX;
-	float			floorStepY;
-	float			floorX;
-	float			floorY;
-	int				cellX;
-	int				cellY;
+	float			rowdistance;
+	float			floorstepx;
+	float			floorstepy;
+	float			floorx;
+	float			floory;
+	int				cellx;
+	int				celly;
 }					t_fcray;
 
 typedef struct		s_wallray{
-	double			cameraX;
-	double			rayDirX;
-	double			rayDirY;
-	double			sideDistX;
-	double			sideDistY;
-	double			deltaDistX;
-	double			deltaDistY;
-	double			perpWallDist;
-	int				stepX;
-	int				stepY;
+	double			camerax;
+	double			raydirx;
+	double			raydiry;
+	double			sidedistx;
+	double			sidedisty;
+	double			deltadistx;
+	double			deltadisty;
+	double			perpwalldist;
+	int				stepx;
+	int				stepy;
 	int				hit;
 	int				side;
 	double			step;
-	double			texPos;
-	double			floorXWall;
-	double			floorYWall;
+	double			texpos;
+	double			floorxwall;
+	double			floorywall;
 }					t_wallray;
 
 typedef struct		s_draw{
-	int				lineHeight;
-	int				texNum;
-	int				drawStart;
-	int				drawEnd;
-	int				texX;
-	int				texY;
+	int				lineheight;
+	int				texnum;
+	int				drawstart;
+	int				drawend;
+	int				texx;
+	int				texy;
 	int				color;
-	double			wallX;
+	double			wallx;
 }					t_draw;
 
 typedef struct		s_dist{

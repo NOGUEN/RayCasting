@@ -43,17 +43,17 @@ void	act_move(t_all *s, double c)
 
 void	act_rotate(t_all *s, double c)
 {
-	double		oldDirX;
-	double		oldPlaneX;
+	double		olddirx;
+	double		oldplanex;
 
-	oldDirX = s->dir.x;
+	olddirx = s->dir.x;
 	s->dir.x = s->dir.x * cos(c * s->speed.rotate)
 		- s->dir.y * sin(c * s->speed.rotate);
-	s->dir.y = oldDirX * sin(c * s->speed.rotate)
+	s->dir.y = olddirx * sin(c * s->speed.rotate)
 		+ s->dir.y * cos(c * s->speed.rotate);
-	oldPlaneX = s->plane.x;
+	oldplanex = s->plane.x;
 	s->plane.x = s->plane.x * cos(c * s->speed.rotate)
 		- s->plane.y * sin(c * s->speed.rotate);
-	s->plane.y = oldPlaneX * sin(c * s->speed.rotate)
+	s->plane.y = oldplanex * sin(c * s->speed.rotate)
 		+ s->plane.y * cos(c * s->speed.rotate);
 }

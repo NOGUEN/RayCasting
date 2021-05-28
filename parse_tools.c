@@ -12,7 +12,8 @@
 
 #include "cub3d.h"
 
-int		input_resolution(t_all *s, char *line, int *i) {
+int		input_resolution(t_all *s, char *line, int *i)
+{
 	if (s->win.x != 0 || s->win.y != 0)
 		return (-3);
 	(*i)++;
@@ -28,7 +29,8 @@ int		input_resolution(t_all *s, char *line, int *i) {
 	return (0);
 }
 
-int		input_xpm(t_all *s, int **adr, char *file) {
+int		input_xpm(t_all *s, int **adr, char *file)
+{
 	int			fd;
 	int			y;
 	int			x;
@@ -37,22 +39,27 @@ int		input_xpm(t_all *s, int **adr, char *file) {
 	if ((fd = open(file, O_RDONLY)) == -1)
 		return (-1);
 	close(fd);
-	s->img.ptr = 
+	s->img.ptr =
 		mlx_xpm_file_to_image(s->mlx.ptr, file, &s->img.width, &s->img.height);
 	if (s->img.ptr == NULL || s->img.width != 64 || s->img.height != 64)
 		return (-1);
-	s->img.data = (int *)mlx_get_data_addr
-		(s->img.ptr, &s->img.bpp, &s->img.size_l, &s->img.endian);
+	s->img.data = (int *)mlx_get_data_addr(s->img.ptr,
+			&s->img.bpp, &s->img.size_l, &s->img.endian);
 	y = -1;
 	x = -1;
-	while (++y < 64){
-		while (++x < 64){
+	while (++y < 64)
+	{
+		while (++x < 64)
+		{
 			(*adr)[64 * y + x] = s->img.data[64 * y + x];
+		}
+	}
 	free(s->img.ptr);
 	return (0);
 }
 
-int		input_texture(t_all *s, int **adr, char *line, int *i){
+int		input_texture(t_all *s, int **adr, char *line, int *i)
+{
 	int		j;
 	char	*file;
 
@@ -77,7 +84,8 @@ int		input_texture(t_all *s, int **adr, char *line, int *i){
 	return (0);
 }
 
-int		input_color(unsigned int *color, char *line, int *i){
+int		input_color(unsigned int *color, char *line, int *i)
+{
 	int		r;
 	int		g;
 	int		b;
