@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 13:57:31 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/20 18:16:46 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/29 00:47:52 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ int		input_xpm(t_all *s, int **adr, char *file)
 	s->img.data = (int *)mlx_get_data_addr(s->img.ptr,
 			&s->img.bpp, &s->img.size_l, &s->img.endian);
 	y = -1;
-	x = -1;
 	while (++y < 64)
 	{
+		x = -1;
 		while (++x < 64)
 		{
 			(*adr)[64 * y + x] = s->img.data[64 * y + x];

@@ -10,11 +10,20 @@ LXFLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
 
 HEADER = cub3d.h
 
-SRCS = cub3d.c parse.c parse_tools.c tools.c parse_map.c parse_check.c check_tool.c\
-		convert_map.c\
-		gnl/get_next_line.c gnl/get_next_line_utils.c \
-		screen_setting.c casting.c \
-		key_press.c last_casting.c \
+SRCS =	file/cub3d.c\
+		file/parse.c\
+		file/parse_tools.c\
+		file/tools.c\
+		file/parse_map.c\
+		file/parse_check.c\
+		file/check_tool.c\
+		file/convert_map.c\
+		gnl/get_next_line.c\
+		gnl/get_next_line_utils.c\
+		file/screen_setting.c\
+		file/casting.c\
+		file/key_press.c\
+		file/last_casting.c\
 
 OBJS = $(SRCS:.c=.o)
 
@@ -27,8 +36,7 @@ $(MLX) :
 		@$(MAKE) -C mlx
 
 clean:
-	rm -rf *.o
-	rm -rf gnl/*.o
+	rm -rf $(OBJS)
 
 fclean:		 clean
 				rm -rf $(NAME)
