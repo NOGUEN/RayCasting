@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:18:24 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/27 16:03:02 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/28 17:59:22 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ typedef struct		s_tex{
 	int				*s;
 	int				*e;
 	int				*w;
-	int				*i;
 	unsigned int	f;
 	unsigned int	c;
 }					t_tex;
@@ -160,24 +159,6 @@ typedef struct		s_dist{
 	double			player;
 	double			current;
 }					t_dist;
-
-typedef struct		s_spr{
-	double			x;
-	double			y;
-}					t_spr;
-
-typedef struct		s_vspr{
-	double			ZBuffer;
-	double			spriteX;
-	double			spriteY;
-	double			invDet;
-	double			transformX;
-	double			transformY;
-	int				spriteScreenX;
-	int				spriteHeight;
-	int				drawStartX;
-	int				drawEndX;
-}					t_vspr;
 
 typedef struct		s_all{
 	t_mlx			mlx;

@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 13:57:42 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/22 14:29:36 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/28 18:01:34 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ int		tool_close(t_all *s, int win){
 	free(s->tex.s);
 	free(s->tex.e);
 	free(s->tex.w);
-	free(s->tex.i);
 	if (win == 1)
 		mlx_destroy_window(s->mlx.ptr, s->win.ptr);
 	free(s->mlx.ptr);

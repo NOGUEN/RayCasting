@@ -1,10 +1,8 @@
-R  1080 720
 NO ./textures/colorstone.xpm
 SO ./textures/bluestone.xpm
 WE ./textures/wood.xpm
 EA ./textures/greystone.xpm
 
-S ./textures/barrel.xpm
 F 224,172,105
 C 205,249,255
 

@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 13:32:25 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/20 20:45:16 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/28 18:02:08 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int		input_map(t_all *s, char *line, int *j){
 	k = 0;
 	while (k < s->map.x){
 		s->map.map[*j][k] = line[k * 2];
+		if (line[k * 2] == '2')
+			s->map.spr++;
 		k++;
 	}
 	*j = *j + 1;;

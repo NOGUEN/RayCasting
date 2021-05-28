@@ -2,7 +2,7 @@ NAME = cub3D
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -I.
+CFLAGS = -O3 -Wall -Wextra -Werror -I.
 
 MLX = mlx
 
@@ -15,7 +15,6 @@ SRCS = cub3d.c parse.c parse_tools.c tools.c parse_map.c parse_check.c check_too
 		gnl/get_next_line.c gnl/get_next_line_utils.c \
 		screen_setting.c casting.c \
 		key_press.c last_casting.c \
-		bitmap.c
 
 OBJS = $(SRCS:.c=.o)
 

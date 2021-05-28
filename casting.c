@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 14:37:03 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/23 18:35:25 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/28 18:03:57 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,15 @@ void	fc_casting(t_all *s){
 	int		cellY;
 	int		tx;
 	int		ty;
+	int		y;
+	int		x;
 
-	for (int y = 0; y < s->win.y; y++){
+	y = -1;
+	x = -1;
+	while (++y < s->win.y){
 		fc_setting(s, y);
-		for (int x = 0; x < s->win.x; x++){
+		x = -1;
+		while (++x < s->win.x){
 			cellX = (int)s->fcray.floorX;
 			cellY = (int)s->fcray.floorY;
 			tx = (int)(TEXWIDTH * (s->fcray.floorX - cellX)) & (TEXWIDTH - 1);
@@ -74,7 +79,10 @@ void	calculate(t_all *s){
 }
 
 void	wall_casting(t_all *s){
-	for (int x = 0; x < s->win.x; x++){
+	int		x;
+
+	x = -1;
+	while (++x < s->win.x){
 		wall_setting(s, x);
 		step_setting(s);
 		perform_dda(s);
@@ -86,8 +94,13 @@ void	wall_casting(t_all *s){
 }
 
 void	draw(t_all *s){
-	for (int y = 0; y < s->win.y; y++){
-		for (int x = 0; x < s->win.x; x++){
+	int		y;
+	int		x;
+
+	y = -1;
+	while (++y < s->win.y){
+		x = -1;
+		while (++x < s->win.x){
 			s->img.data[y * s->win.x + x] = s->win.buf[y][x];
 		}
 	}

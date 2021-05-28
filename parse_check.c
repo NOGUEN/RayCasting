@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 13:53:03 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/27 16:00:54 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/28 18:03:33 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,10 @@ void	pos_check(t_all *s){
 int		parse_check(t_all *s){
 	if (s->win.x <= 0 || s->win.y <= 0)
 		return (tool_error(-14));
-	else if ((s->tex.n == NULL || s->tex.s == NULL || s->tex.e == NULL)
-			|| (s->tex.w == NULL || s->tex.i == NULL))
+	else if (s->tex.n == NULL
+			|| s->tex.s == NULL
+			|| s->tex.e == NULL
+			|| s->tex.w == NULL)
 		return (tool_error(-15));
 	else if (s->tex.c == NONE || s->tex.f == NONE)
 		return (tool_error(-16));
