@@ -6,28 +6,11 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 13:57:31 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/29 00:47:52 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/29 16:24:43 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int		input_resolution(t_all *s, char *line, int *i)
-{
-	if (s->win.x != 0 || s->win.y != 0)
-		return (-3);
-	(*i)++;
-	s->win.x = tool_atoi(line, i);
-	s->win.y = tool_atoi(line, i);
-	if (s->win.x > 2560)
-		s->win.x = 2560;
-	if (s->win.y > 1400)
-		s->win.y = 1400;
-	tool_space_skip(line, i);
-	if (s->win.x <= 0 || s->win.y <= 0 || line[*i] != '\0')
-		return (-4);
-	return (0);
-}
 
 int		input_xpm(t_all *s, int **adr, char *file)
 {
@@ -54,7 +37,7 @@ int		input_xpm(t_all *s, int **adr, char *file)
 			(*adr)[64 * y + x] = s->img.data[64 * y + x];
 		}
 	}
-	free(s->img.ptr);
+	mlx_destroy_image(s->mlx.ptr, s->img.ptr);
 	return (0);
 }
 

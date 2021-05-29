@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:18:24 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/28 17:59:22 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/29 16:34:42 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ typedef struct		s_map{
 	int				y;
 	int				mapx;
 	int				mapy;
-	int				spr;
 }					t_map;
 
 typedef struct		s_tex{
@@ -183,7 +182,6 @@ void				longest_line(t_all *s, char *cub);
 int					input_line(t_all *s, char *line, int *j);
 int					parse(t_all *s, char *cub);
 
-int					input_resolution(t_all *s, char *line, int *i);
 int					input_xpm(t_all *s, int **adr, char *file);
 int					input_texture(t_all *s, int **adr, char *line, int *i);
 int					input_color(unsigned int *color, char *line, int *i);
