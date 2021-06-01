@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:18:24 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/29 16:34:42 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/05/28 17:59:22 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct		s_map{
 	int				y;
 	int				mapx;
 	int				mapy;
+	int				spr;
 }					t_map;
 
 typedef struct		s_tex{
