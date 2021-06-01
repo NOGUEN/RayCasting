@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 13:57:31 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/29 00:47:52 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/06/01 13:06:35 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int		input_color(unsigned int *color, char *line, int *i)
 	b = tool_atoi(line, i);
 	tool_space_skip(line, i);
 	if (line[*i] != '\0' || r > 255 || g > 255 || b > 255)
-		return (-5);
+		return (-6);
 	*color = r * 256 * 256 + g * 256 + b;
 	return (0);
 }

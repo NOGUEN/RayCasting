@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 13:57:42 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/28 18:01:34 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/06/01 14:47:47 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,24 +68,12 @@ int		tool_error(int err)
 	(err == -17) ? write(2, "Error : No starting position\n", 29) : 0;
 	(err == -18) ? write(2, "Error : Multiple starting positions\n", 36) : 0;
 	(err == -19) ? write(2, "Error : Map isn't surrounded by walls\n", 38) : 0;
+	exit(0);
 	return (-1);
 }
 
-int		tool_close(t_all *s, int win)
+int		tool_close(void)
 {
-	int	i;
-
-	i = 0;
-	while (i < s->map.y)
-		free(s->map.map[i++]);
-	free(s->map.map);
-	free(s->tex.n);
-	free(s->tex.s);
-	free(s->tex.e);
-	free(s->tex.w);
-	if (win == 1)
-		mlx_destroy_window(s->mlx.ptr, s->win.ptr);
-	free(s->mlx.ptr);
 	exit(0);
-	return (1);
+	return (0);
 }

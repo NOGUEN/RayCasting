@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 16:18:24 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/28 17:59:22 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/06/01 14:32:44 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,6 +235,6 @@ int					tool_space_skip(char *line, int *i);
 int					tool_atoi(char *line, int *i);
 int					tool_strlen(char *line);
 int					tool_error(int err);
-int					tool_close(t_all *s, int win);
+int					tool_close();
 
 #endif

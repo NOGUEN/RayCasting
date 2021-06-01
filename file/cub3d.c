@@ -6,7 +6,7 @@
 /*   By: nogeun <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 12:08:02 by nogeun            #+#    #+#             */
-/*   Updated: 2021/05/28 18:36:08 by nogeun           ###   ########.fr       */
+/*   Updated: 2021/06/01 14:32:14 by nogeun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	cub3d_init3(t_all *s)
 	s->img.data = (int *)mlx_get_data_addr(s->img.ptr, &s->img.bpp,
 			&s->img.size_l, &s->img.endian);
 	mlx_hook(s->win.ptr, X_EVENT_KEY_PRESS, 0, &key_press, s);
+	mlx_hook(s->win.ptr, 17, 0, &tool_close, s);
 	mlx_loop_hook(s->mlx.ptr, &main_loop, s);
 	mlx_loop(s->mlx.ptr);
 }
@@ -54,7 +55,7 @@ void	cub3d_init2(t_all *s, char **argv)
 	s->win.y = 720;
 	s->mlx.ptr = mlx_init();
 	if (parse(s, argv[1]) == -1)
-		tool_close(s, 0);
+		exit(0);
 	s->win.buf = malloc(sizeof(int *) * s->win.y + 1);
 	while (i < s->win.y + 1)
 	{
