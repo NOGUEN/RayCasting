@@ -6,11 +6,16 @@ I just made it alone to understand raycasting.
 
 You can run this only on MacOS.
 
-## install
+## install and run
 
 ```
-git clone 
+//download
+git clone git@github.com:CrazyImSoFlutter/cub3D.git
+
+//compile
 make
+
+//run
 ./cub3d map/wp_map.cub
 ```
 
