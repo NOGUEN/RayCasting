@@ -1,7 +1,5 @@
 # cub3D
 
-NOT THAT PERFECT!
-
 I just made it alone to understand raycasting.
 
 You can run this only on MacOS.
@@ -13,6 +11,12 @@ You can run this only on MacOS.
 git clone git@github.com:CrazyImSoFlutter/cub3D.git
 
 ## compile
+make
+
+## if does not compiled
+cd mlx
+make
+cd ..
 make
 
 ## run
