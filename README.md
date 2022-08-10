@@ -1,4 +1,4 @@
-# cub3D
+# RayCasting Project
 
 I just made it alone to understand raycasting.
 
